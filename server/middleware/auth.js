@@ -16,7 +16,7 @@ exports.auth = (req, res, next) => {
 };
 
 exports.admin = (req, res, next) => {
-  if (!req.user) {
+  if (!req.user || !req.user.role) {
     return res.status(401).json({ error: 'Authentication required' });
   }
   if (req.user.role !== 'admin') {
