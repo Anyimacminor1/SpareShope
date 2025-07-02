@@ -21,6 +21,8 @@ import {
   Paper,
   Divider,
   Chip,
+  useTheme,
+  useMediaQuery,
 } from "@mui/material";
 import { useAuth } from "../context/AuthContext";
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -45,6 +47,8 @@ export default function AdminDashboard() {
   const [imagePreview, setImagePreview] = useState(null);
   const [search, setSearch] = useState("");
   const superAdminEmails = ["ofecaleb2@gmail.com", "anyimac86@gmail.com"];
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     if (user?.token && user?.role === "admin") {
@@ -184,26 +188,31 @@ export default function AdminDashboard() {
   }
 
   return (
-    <Box minHeight="100vh" bgcolor="#f4f6f8" py={3}>
-      <Box maxWidth={1200} mx="auto" px={2}>
+    <Box minHeight="100vh" bgcolor="#f4f6f8" py={isMobile ? 1 : 3}>
+      <Box maxWidth={1200} mx="auto" px={isMobile ? 0.5 : 2}>
         <Card sx={{ boxShadow: 6, borderRadius: 3 }}>
           <CardContent>
-            <Box display="flex" alignItems="center" mb={3}>
-              <img src={LandRoverLogo} alt="Land Rover" style={{ width: 50, marginRight: 16 }} />
-              <Typography variant="h4" fontWeight={700} color="primary.main">
+            <Box display="flex" flexDirection={isMobile ? 'column' : 'row'} alignItems={isMobile ? 'flex-start' : 'center'} mb={isMobile ? 1 : 3}>
+              <img src={LandRoverLogo} alt="Land Rover" style={{ width: isMobile ? 36 : 50, marginRight: isMobile ? 0 : 16, marginBottom: isMobile ? 8 : 0 }} />
+              <Typography variant={isMobile ? 'h6' : 'h4'} fontWeight={700} color="primary.main">
                 Admin Dashboard
               </Typography>
             </Box>
             
-            <Paper sx={{ mb: 3 }}>
+            <Paper sx={{ mb: isMobile ? 1 : 3 }}>
               <Tabs 
                 value={tab} 
-                onChange={(_, v) => setTab(v)} 
+                onChange={(e, v) => setTab(v)} 
+                variant={isMobile ? 'scrollable' : 'standard'}
+                scrollButtons={isMobile ? 'auto' : false}
+                orientation={isMobile ? 'horizontal' : 'horizontal'}
+                textColor="primary"
+                indicatorColor="primary"
                 sx={{ 
-                  '& .MuiTab-root': { 
-                    fontWeight: 600,
-                    textTransform: 'none',
-                    fontSize: '1rem'
+                  '.MuiTab-root': { 
+                    minWidth: isMobile ? 80 : 120,
+                    fontSize: isMobile ? '0.8rem' : '1rem',
+                    px: isMobile ? 1 : 2,
                   }
                 }}
               >
