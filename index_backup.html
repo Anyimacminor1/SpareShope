@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="SpareShop - Land Rover spare parts for Series, Defender, Discovery, and Range Rover. High-quality parts with easy navigation.">
+    <meta name="keywords" content="Land Rover parts, Defender spare parts, Range Rover parts, Discovery parts, Series parts, SpareShop">
+    <meta name="author" content="SpareShop">
+    <title>SpareShop – Land Rover Spare Parts</title>
+    <!-- Favicon -->
+    <link rel="icon" href="assets/favicon/favicon.ico" type="image/x-icon">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
+    <!-- Stylesheet -->
+    <link rel="stylesheet" href="styles.css">
+    <!-- Font Awesome for icons (CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header */
+        .header {
+            background-color: #1a3c34;
+            color: #fff;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header__container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header__logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .nav__toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .nav__toggle-icon {
+            display: block;
+            width: 24px;
+            height: 3px;
+            background: #fff;
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .nav__toggle-icon::before,
+        .nav__toggle-icon::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 3px;
+            background: #fff;
+            left: 0;
+            transition: all 0.3s ease;
+        }
+
+        .nav__toggle-icon::before {
+            top: -8px;
+        }
+
+        .nav__toggle-icon::after {
+            bottom: -8px;
+        }
+
+        .nav__toggle--open .nav__toggle-icon {
+            background: transparent;
+        }
+
+        .nav__toggle--open .nav__toggle-icon::before {
+            transform: rotate(45deg);
+            top: 0;
+        }
+
+        .nav__toggle--open .nav__toggle-icon::after {
+            transform: rotate(-45deg);
+            bottom: 0;
+        }
+
+        .nav__list {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav__item {
+            margin-left: 1.5rem;
+        }
+
+        .nav__link {
+            color: #fff;
+            text-decoration: none;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav__link i {
+            font-size: 1.2rem;
+        }
+
+        /* Tabs */
+        .tabs {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .tabs__nav {
+            display: flex;
+            border-bottom: 2px solid #1a3c34;
+            margin-bottom: 2rem;
+        }
+
+        .tabs__nav-button {
+            background: none;
+            border: none;
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            cursor: pointer;
+            color: #333;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .tabs__nav-button--active {
+            color: #d4a017;
+            border-bottom: 2px solid #d4a017;
+        }
+
+        .tabs__nav-button:hover {
+            color: #d4a017;
+        }
+
+        .tabs__content {
+            display: none;
+        }
+
+        .tabs__content--active {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: url('assets/images/vehicles/defender-110.jpg') center/cover no-repeat;
+            padding: 4rem 2rem;
+            text-align: center;
+            color: #fff;
+        }
+
+        .hero__title {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero__subtitle {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+        }
+
+        .hero__cta {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: #d4a017;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        /* Models Section */
+        .models {
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .models__title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .models__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .model-card {
+            background: #f9f9f9;
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .model-card__image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .model-card__title {
+            font-size: 1.5rem;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .model-card__description {
+            padding: 0 1rem;
+            font-size: 1rem;
+            color: #666;
+        }
+
+        .model-card__link {
+            display: inline-block;
+            margin: 1rem;
+            color: #1a3c34;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        /* Catalog Section */
+        .catalog__title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .catalog__filters {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            justify-content: center;
+        }
+
+        .catalog__filters select,
+        .catalog__filters input {
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .catalog__grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .part-card {
+            background: #f9f9f9;
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        .part-card__image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .part-card__title {
+            font-size: 1.2rem;
+            margin: 1rem 0 0.5rem;
+        }
+
+        .part-card__description {
+            padding: 0 1rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .part-card__price {
+            font-weight: bold;
+            color: #1a3c34;
+            margin: 0.5rem 0;
+        }
+
+        .part-card__button {
+            display: inline-block;
+            margin: 1rem;
+            padding: 0.5rem 1rem;
+            background-color: #d4a017;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Cart Section */
+        .cart__title {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .cart__items {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .cart__item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .cart__checkout {
+            display: block;
+            margin: 2rem auto;
+            padding: 0.75rem 1.5rem;
+            background-color: #1a3c34;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        /* Contact Section */
+        .contact {
+            padding: 2rem;
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .contact__form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .contact__form input,
+        .contact__form textarea {
+            padding: 0.5rem;
+            font-size: 1rem;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .contact__form button {
+            padding: 0.75rem;
+            background-color: #d4a017;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        .footer {
+            background-color: #1a3c34;
+            color: #fff;
+            padding: 1rem;
+            text-align: center;
+        }
+
+        .footer__container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer__links {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 0.5rem;
+        }
+
+        .footer__links a {
+            color: #fff;
+            text-decoration: none;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav__list {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 60px;
+                left: 0;
+                right: 0;
+                background: #1a3c34;
+                padding: 1rem;
+            }
+
+            .nav__list--open {
+                display: flex;
+            }
+
+            .nav__toggle {
+                display: block;
+            }
+
+            .nav__item {
+                margin: 0.5rem 0;
+            }
+
+            .tabs__nav {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .hero__title {
+                font-size: 2rem;
+            }
+
+            .catalog__filters {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header & Navigation -->
+    <header class="header">
+        <div class="header__container">
+            <span class="header__logo">SpareShop</span>
+            <nav class="nav" aria-label="Main navigation">
+                <button class="nav__toggle" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+                    <span class="nav__toggle-bar"></span>
+                    <span class="nav__toggle-bar"></span>
+                    <span class="nav__toggle-bar"></span>
+                </button>
+                <ul class="nav__list" id="navMenu">
+                    <li class="nav__item"><a href="#home" class="nav__link nav__link--active"><i class="fa fa-home"></i> Home</a></li>
+                    <li class="nav__item"><a href="#catalog" class="nav__link"><i class="fa fa-tools"></i> Catalog</a></li>
+                    <li class="nav__item"><a href="#cart" class="nav__link"><i class="fa fa-shopping-cart"></i> Cart (<span id="cart-count">0</span>)</a></li>
+                    <li class="nav__item"><a href="#contact" class="nav__link"><i class="fa fa-envelope"></i> Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main id="main-content">
+            <!-- Hero Section -->
+        <section id="home" class="tab tab--active hero" tabindex="0">
+                <div class="hero__content">
+                <h1 class="hero__title">Find Spare Parts for Your Land Rover</h1>
+                    <p class="hero__subtitle">Genuine and aftermarket parts for Series, Defender, Discovery, and Range Rover.</p>
+                <a href="#catalog" class="btn btn--primary hero__cta">Shop Now</a>
+                </div>
+            <div class="models">
+                <h2 class="models__title">Our Land Rover Models</h2>
+                <div class="models__grid">
+                    <article class="model-card">
+                        <img src="assets/images/vehicles/defender-110.jpg" alt="Land Rover Defender 110" class="model-card__image" onerror="this.src='assets/images/vehicles/fallback.jpg'">
+                        <h3 class="model-card__title">Defender</h3>
+                        <p class="model-card__description">Iconic off-roader with 200Tdi, 300Tdi, and V8 engines. Built for adventure.</p>
+                        <a href="#catalog" class="model-card__link">View Parts</a>
+                    </article>
+                    <article class="model-card">
+                        <img src="assets/images/vehicles/series-i.jpg" alt="Land Rover Series I" class="model-card__image" onerror="this.src='assets/images/vehicles/fallback.jpg'">
+                        <h3 class="model-card__title">Series</h3>
+                        <p class="model-card__description">Classic models from 1948–1985, perfect for restoration enthusiasts.</p>
+                        <a href="#catalog" class="model-card__link">View Parts</a>
+                    </article>
+                    <article class="model-card">
+                        <img src="assets/images/vehicles/discovery-5.jpg" alt="Land Rover Discovery 5" class="model-card__image" onerror="this.src='assets/images/vehicles/fallback.jpg'">
+                        <h3 class="model-card__title">Discovery</h3>
+                        <p class="model-card__description">Versatile SUV with advanced tech, from Series I to Discovery 5.</p>
+                        <a href="#catalog" class="model-card__link">View Parts</a>
+                    </article>
+                    <article class="model-card">
+                        <img src="assets/images/vehicles/range-rover-classic.jpg" alt="Land Rover Range Rover Classic" class="model-card__image" onerror="this.src='assets/images/vehicles/fallback.jpg'">
+                        <h3 class="model-card__title">Range Rover</h3>
+                        <p class="model-card__description">Luxury and performance, from Classic to modern Sport models.</p>
+                        <a href="#catalog" class="model-card__link">View Parts</a>
+                    </article>
+                </div>
+                </div>
+            </section>
+
+        <!-- Catalog Section -->
+        <section id="catalog" class="tab" tabindex="0" hidden>
+                <h2 class="catalog__title">Parts Catalog</h2>
+            <form class="catalog__filters" autocomplete="off">
+                <label>
+                    Model:
+                    <select id="filter-model">
+                        <option value="">All</option>
+                        <option value="Defender">Defender</option>
+                        <option value="Series">Series</option>
+                        <option value="Discovery">Discovery</option>
+                        <option value="Range Rover">Range Rover</option>
+                    </select>
+                </label>
+                <label>
+                    Year:
+                    <input type="number" id="filter-year" min="1948" max="2025" placeholder="e.g. 1995">
+                </label>
+                <label>
+                    Search:
+                    <input type="text" id="filter-search" placeholder="Part name or number">
+                </label>
+            </form>
+            <div class="catalog__grid" id="catalog-grid">
+                <!-- Parts will be rendered here by JS -->
+                </div>
+            <div id="catalog-error" class="error-message" hidden></div>
+            </section>
+
+            <!-- Cart Section -->
+        <section id="cart" class="tab" tabindex="0" hidden>
+                <h2 class="cart__title">Your Cart</h2>
+            <div id="cart-items" class="cart__items">
+                <!-- Cart items rendered by JS -->
+            </div>
+            <div class="cart__summary">
+                <span>Total: $<span id="cart-total">0.00</span></span>
+                <button class="btn btn--primary" id="checkout-btn" disabled>Checkout (Coming Soon)</button>
+            </div>
+            <div id="cart-error" class="error-message" hidden></div>
+            </section>
+
+            <!-- Contact Section -->
+        <section id="contact" class="tab" tabindex="0" hidden>
+            <h2>Contact Us</h2>
+            <form id="contact-form" novalidate>
+                <label>
+                    Name:
+                    <input type="text" name="name" required>
+                </label>
+                <label>
+                    Email:
+                    <input type="email" name="email" required>
+                </label>
+                <label>
+                    Message:
+                    <textarea name="message" rows="4" required></textarea>
+                </label>
+                <button type="submit" class="btn btn--primary">Send Message</button>
+                <div id="contact-success" class="success-message" hidden>Thank you! We'll get back to you soon.</div>
+                <div id="contact-error" class="error-message" hidden>There was an error. Please try again.</div>
+                </form>
+            </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer__main">
+            <span>© 2025 SpareShop. All rights reserved.</span>
+            <nav class="footer__nav">
+                <a href="#contact">Contact Us</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Privacy Policy</a>
+            </nav>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+</body>
+</html>
+<!--
+README:
+- Replace image paths in assets/images/vehicles/ and assets/images/parts/ with your own images.
+- Favicon and manifest are in assets/favicon/.
+- For backend/API integration, see TODOs in script.js.
+- For advanced features (reviews, wishlist), see TODOs in each section.
+-->
